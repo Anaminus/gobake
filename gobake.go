@@ -127,10 +127,11 @@ func readFile(name string, compress bool) string {
 		}
 		s = append(s, '\\', 'x', 0, 0)
 		hex.Encode(s[len(s)-2:len(s)], b[i:i+1])
-		if i%16 == 15 {
+		if i == len(b)-1 {
+			s = append(s, '"', '\n')
+		} else if i%16 == 15 {
 			s = append(s, '"', ' ', '+', '\n')
 		}
 	}
-	s = append(s, '"')
 	return string(s)
 }
